@@ -1,0 +1,5 @@
+{
+  "name": "mirai-bot",
+  "script": "index.js",
+  "restart_delay": 100
+}

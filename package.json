@@ -1,0 +1,19 @@
+{
+  "name": "mirai-bot",
+  "version": "1.0.0",
+  "description": "bot",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^6.0.0",
+    "firebase": "^5.5.3",
+    "moment": "^2.22.2",
+    "telegraf": "^3.24.0",
+    "telegraf-session-local": "^0.0.6"
+  }
+}

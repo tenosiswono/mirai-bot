@@ -1,0 +1,5 @@
+{
+  "start": "Hello ,\nto get started send /help",
+  "daily_update_template": "**Daily {day}**\n**Done**\n-\n**To Do**\n-\n**Blockers**\n-",
+  "help": "*Commands :*\n/daily <squad_name>: post daily to channel\n/help: Help!\nGot questions? feel free to ask me @tenosiswono"
+}
