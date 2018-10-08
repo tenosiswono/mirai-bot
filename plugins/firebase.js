@@ -76,6 +76,41 @@ firebase.addMember = (squad, name) => {
   })
 }
 
+firebase.setGroupSquad = (squad, message) => {
+  let groupId = message.chat.id
+  let groupName = message.chat.title
+  let groupType = message.chat.type
+
+  // Store group Info
+  let groupRef = firebase.database.ref(`groups/${groupId}`)
+
+  return groupRef.once('value').then(snapshot => {
+
+    if(!snapshot.val()){
+      groupRef.set({
+        id: groupId,
+        name: groupName,
+        type: groupType,
+        squad: squad
+      })
+    }
+
+  })
+}
+
+firebase.getGroupSquad = (message) => {
+  let groupId = message.chat.id
+
+  // Store group Info
+  let groupRef = firebase.database.ref(`groups/${groupId}`)
+
+  return groupRef.once('value').then(snapshot => {
+    if(!snapshot.val()) {
+      return snapshot.val().squad
+    }
+  })
+}
+
 firebase.getMembers = (squad) => {
   let squadMemberRef = firebase.database.ref(`squads/${squad}/members`)
 

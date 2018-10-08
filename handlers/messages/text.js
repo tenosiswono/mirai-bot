@@ -37,9 +37,10 @@ const textHandler = (ctx) => {
   } else if (session.chatState === chatStates.AWAITING_DAILY_SQUAD_PICK) {
     session.chatState = chatStates.AWAITING_DAILY_TEXT;
     session.squadPick = message.text
-    const today = moment().format('dddd, MMMM Do YYYY')
+    const today = moment().format('dddd, DD MMM YYYY')
+    const template = daily_update_template.replace('{day}', today).replace('{tag}', moment().format('DDMMYY'))
     replyWithMarkdown(`Tulis daily update untuk hari: *${today}*\nFormat:`, Markup.removeKeyboard().extra());
-    reply(daily_update_template.replace('{day}', today))
+    replyWithMarkdown(template)
   }
 }
 

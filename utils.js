@@ -1,7 +1,7 @@
 const { admin } = require('./config');
 
 const isAdmin = (message) => {
-  return admin === message.chat.username
+  return admin === message.from.username
 }
 
 module.exports = {
