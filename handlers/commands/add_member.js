@@ -8,7 +8,7 @@ const addMemberHandlers = ({ reply, session, message }) => {
     session.chatState = chatStates.AWAITING_SQUAD_PICK;
     getSquads().then(value => {
       const squadButton = []
-      for(key in value.val()) {
+      for(key in value) {
         const nextAction = `pick_squad:${key}`;
         squadButton.push(Markup.button(key, false))
       }

@@ -1,12 +1,12 @@
 const { Markup } = require('telegraf');
-const { chatStates, channelId } = require('../../config');
+const { chatStates } = require('../../config');
 const { daily_update_template } = require('../../config/messages')
-const { saveDaily, addMember } = require('../../plugins/firebase');
+const { saveDaily, addMember, getChannel } = require('../../plugins/firebase');
 const { isAdmin } = require('../../utils')
 var moment = require('moment');
 moment.locale('id');
 
-const textHandler = (ctx) => {
+const textHandler = async (ctx) =>  {
   const {
     reply,
     replyWithMarkdown,
@@ -30,6 +30,7 @@ const textHandler = (ctx) => {
   }
   if (session.chatState === chatStates.AWAITING_DAILY_TEXT) {
     session.chatState = chatStates.AWAITING_COMMAND;
+    const channelId = await getChannel(session.squadPick)
     forwardMessage(channelId)
     saveDaily(session.squadPick, message)
     session.squadPick = undefined
@@ -39,8 +40,8 @@ const textHandler = (ctx) => {
     session.squadPick = message.text
     const today = moment().format('dddd, DD MMM YYYY')
     const template = daily_update_template.replace('{day}', today).replace('{tag}', moment().format('DDMMYY'))
-    replyWithMarkdown(`Tulis daily update untuk hari: *${today}*\nFormat:`, Markup.removeKeyboard().extra());
-    replyWithMarkdown(template)
+    await replyWithMarkdown(`Tulis daily update untuk hari: *${today}*\nFormat:`, Markup.removeKeyboard().extra())
+    await replyWithMarkdown(template)
   }
 }
 

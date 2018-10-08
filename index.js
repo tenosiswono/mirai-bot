@@ -1,6 +1,7 @@
 require('dotenv').config()
 
 const Telegraf = require('telegraf')
+const cron = require('./cron')
 const LocalSession = require('telegraf-session-local');
 const handlers = require('./handlers')
 const { start } = require('./config/messages')
@@ -20,3 +21,4 @@ bot.catch((err) => {
 })
 
 bot.startPolling();
+cron(bot)

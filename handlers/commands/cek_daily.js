@@ -1,20 +1,19 @@
-const { Markup } = require('telegraf');
 const { chatStates } = require('../../config');
-const { getMembers, getDailyMembersToday, getGroupSquad } = require('../../plugins/firebase');
+const { getSquads, getDailyMembersToday, getGroupSquad } = require('../../plugins/firebase');
 var moment = require('moment');
 moment.locale('id');
-
 
 const cekDailyHandler = async ({ reply, replyWithMarkdown, session, message }) => {
   session.chatState = chatStates.AWAITING_COMMAND;
   const squadName = getGroupSquad(message)
   if (squadName) {
-    const firebaseMembers = await getMembers(squadName)
+    const squad = await getSquads(squadName)
     const firebaseDailyMembers = await getDailyMembersToday(squadName)
-    const members = firebaseMembers.val() || []
+    const members = squad.members
+    const excludeMembers = squad.exclude_members
     const dailyMembers = Object.keys(firebaseDailyMembers.val() || {})
     const notDailyMembers = members.filter( mem => {
-      return dailyMembers.indexOf(mem) < 0;
+      return dailyMembers.indexOf(mem) < 0 || excludeMembers.indexOf(mem) < 0;
     });
     const today = moment().format('dddd, MMMM Do YYYY')
     if (notDailyMembers.length) {

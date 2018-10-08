@@ -10,10 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cron": "^1.4.1",
     "dotenv": "^6.0.0",
     "firebase": "^5.5.3",
     "moment": "^2.22.2",
-    "node-cron": "^2.0.1",
     "telegraf": "^3.24.0",
     "telegraf-session-local": "^0.0.6"
   }

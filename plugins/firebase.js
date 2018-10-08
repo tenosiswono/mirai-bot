@@ -64,7 +64,9 @@ firebase.getSquads = (name) => {
     return squadRef.once('value')
   }
   let squadRef = firebase.database.ref(`squads`)
-  return squadRef.once('value')
+  return squadRef.once('value').then(snapshot => {
+    return snapshot.val()
+  })
 }
 
 firebase.addMember = (squad, name) => {
@@ -76,26 +78,39 @@ firebase.addMember = (squad, name) => {
   })
 }
 
-firebase.setGroupSquad = (squad, message) => {
+firebase.setChannel = (squad, name) => {
+  let squadMemberRef = firebase.database.ref(`squads/${squad}/channel`)
+
+  squadMemberRef.set(name)
+}
+
+firebase.getChannel = (squad) => {
+  let squadMemberRef = firebase.database.ref(`squads/${squad}/channel`)
+
+  return squadMemberRef.once('value').then(snapshot => {
+    return snapshot.val()
+  })
+}
+
+firebase.setGroupSquad = async (squad, message) => {
   let groupId = message.chat.id
   let groupName = message.chat.title
   let groupType = message.chat.type
 
-  // Store group Info
   let groupRef = firebase.database.ref(`groups/${groupId}`)
 
-  return groupRef.once('value').then(snapshot => {
+  const snapshot = await groupRef.once('value')
 
-    if(!snapshot.val()){
-      groupRef.set({
-        id: groupId,
-        name: groupName,
-        type: groupType,
-        squad: squad
-      })
-    }
-
-  })
+  if(!snapshot.val()){
+    await groupRef.set({
+      id: groupId,
+      name: groupName,
+      type: groupType,
+      squad: squad
+    })
+  }
+  squadMemberRef = firebase.database.ref(`squads/${squad}/group`)
+  await squadMemberRef.set(groupId)
 }
 
 firebase.getGroupSquad = (message) => {

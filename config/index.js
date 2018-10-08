@@ -7,6 +7,6 @@ module.exports = {
     AWAITING_SQUAD_PICK: 'AWAITING_SQUAD_PICK',
     AWAITING_MEMBER_ENTRY: 'AWAITING_MEMBER_ENTRY'
   },
-  channelId: process.env.BOT_CHANNEL,
-  admin: process.env.BOT_ADMIN
+  admin: process.env.BOT_ADMIN,
+  botName: process.env.BOT_NAME
 };
