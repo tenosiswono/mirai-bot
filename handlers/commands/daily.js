@@ -16,7 +16,7 @@ const dailyUpdateHandler = async ({ reply, replyWithMarkdown, session, message }
         const today = moment().format('dddd, DD MMM YYYY')
         const template = daily_update_template.replace('{day}', today).replace('{tag}', moment().format('DDMMYY'))
         await replyWithMarkdown(`Tulis daily update untuk hari: *${today}*\nFormat:`, Markup.removeKeyboard().extra())
-        await replyWithMarkdown(template)
+        await reply(template)
       } else {
         reply('Squad tidak dikenali');
       }
