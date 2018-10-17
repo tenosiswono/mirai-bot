@@ -1,5 +1,6 @@
 {
   "start": "Hello ,\nto get started send /help",
   "daily_update_template": "#daily{tag}\n*Daily {day}*\n*Done*\n- Hal yang sudah dikerjakan sebelum stand up hari ini\n*To Do*\n- Hal yang akan dikerjakan setelah stand up\n*Blockers*\n- Blocker hari ini",
-  "help": "*Commands :*\n/daily <squad_name>: post daily to channel\n/help: Help!\nGot questions? feel free to ask me @tenosiswono"
+  "help": "**Commands :**\n/daily: post daily to channel\n/cek\\_daily: cek yang belum daily\n/help: Help!\nGot questions? feel free to ask me @tenosiswono",
+  "abort": "Command aborted"
 }

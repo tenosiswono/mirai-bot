@@ -3,7 +3,7 @@ const { chatStates } = require('../../config');
 const { daily_update_template } = require('../../config/messages')
 const { saveDaily, addMember, getChannel } = require('../../plugins/firebase');
 const { isAdmin } = require('../../utils')
-var moment = require('moment');
+const moment = require('moment');
 moment.locale('id');
 
 const textHandler = async (ctx) =>  {

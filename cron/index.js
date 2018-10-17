@@ -1,6 +1,6 @@
 const CronJob = require('cron').CronJob;
 const { getSquads, getDailyMembersToday } = require('../plugins/firebase');
-var moment = require('moment');
+const moment = require('moment');
 moment.locale('id');
 
 const cron = (bot) => {

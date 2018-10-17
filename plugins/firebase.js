@@ -1,5 +1,5 @@
 const fb = require('firebase')
-var moment = require('moment');
+const moment = require('moment');
 moment.locale('id');
 
 const API_KEY = process.env.FIREBASE_KEY
@@ -39,9 +39,10 @@ firebase.saveDaily = (squad, message) => {
   chatRef.set(message)
 }
 
-firebase.getDailyMembersToday = (squad) => {
+firebase.getDailyMembersToday = async (squad) => {
   let chatRef = firebase.database.ref(`daily/${squad}/${moment().format('DD-MM-YYYY')}`)
-  return chatRef.once('value')
+  const snapshot = await chatRef.once('value')
+  return snapshot.val()
 }
 
 firebase.addSquad = (name) => {
@@ -58,15 +59,15 @@ firebase.addSquad = (name) => {
   })
 }
 
-firebase.getSquads = (name) => {
+firebase.getSquads = async (name) => {
   if (name) {
     let squadRef = firebase.database.ref(`squads/${name}`)
-    return squadRef.once('value')
+    const snapshot = await squadRef.once('value')
+    return snapshot.val()
   }
   let squadRef = firebase.database.ref(`squads`)
-  return squadRef.once('value').then(snapshot => {
-    return snapshot.val()
-  })
+  const snapshot = await squadRef.once('value')
+  return snapshot.val()
 }
 
 firebase.addMember = (squad, name) => {
@@ -113,17 +114,16 @@ firebase.setGroupSquad = async (squad, message) => {
   await squadMemberRef.set(groupId)
 }
 
-firebase.getGroupSquad = (message) => {
+firebase.getGroupSquad = async (message) => {
   let groupId = message.chat.id
 
   // Store group Info
   let groupRef = firebase.database.ref(`groups/${groupId}`)
 
-  return groupRef.once('value').then(snapshot => {
-    if(!snapshot.val()) {
-      return snapshot.val().squad
-    }
-  })
+  const snapshot = await groupRef.once('value')
+  if(snapshot.val()){
+    return snapshot.val().squad
+  }
 }
 
 firebase.getMembers = (squad) => {

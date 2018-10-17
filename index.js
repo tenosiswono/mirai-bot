@@ -5,8 +5,9 @@ const cron = require('./cron')
 const LocalSession = require('telegraf-session-local');
 const handlers = require('./handlers')
 const { start } = require('./config/messages')
+const { botName } = require('./config')
 
-const bot = new Telegraf(process.env.BOT_TOKEN)
+const bot = new Telegraf(process.env.BOT_TOKEN, {username: botName})
 
 const localSession = new LocalSession({ database: 'db.json' });
 bot.use(localSession.middleware());
