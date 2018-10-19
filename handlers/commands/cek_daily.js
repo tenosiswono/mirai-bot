@@ -11,7 +11,7 @@ const cekDailyHandler = async ({ reply, replyWithMarkdown, session, message }) =
     const firebaseDailyMembers = await getDailyMembersToday(squadName)
     const members = squad.members || []
     const excludeMembers = squad.exclude_members || []
-    const dailyMembers = Object.keys(firebaseDailyMembers)
+    const dailyMembers = Object.keys(firebaseDailyMembers || {})
     const notDailyMembers = members.filter( mem => {
       return dailyMembers.indexOf(mem) < 0 && excludeMembers.indexOf(mem) < 0;
     });
