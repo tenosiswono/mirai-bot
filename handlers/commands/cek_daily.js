@@ -17,7 +17,7 @@ const cekDailyHandler = async ({ reply, replyWithMarkdown, session, message }) =
     });
     const today = moment().format('dddd, MMMM Do YYYY')
     if (notDailyMembers.length) {
-      replyWithMarkdown(`*Daily ${today}*, yang belum update nih\n${notDailyMembers.map(mem => `@${mem}`).join('\n').replace('_', '\\_')}`)
+      replyWithMarkdown(`*Daily ${today}*, yang belum update nih\n${notDailyMembers.map(mem => `@${mem.replace('_', '\\_')}`).join('\n')}`)
     } else {
       replyWithMarkdown(`*Daily ${today}*, semua sudah update`)
     }
