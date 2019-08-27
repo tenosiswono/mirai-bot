@@ -11,6 +11,7 @@ const cron = (bot) => {
       const dailyMembers = Object.keys(firebaseDailyMembers.val() || {})
       const members = squads[squad].members || []
       const excludeMembers = squads[squad].exclude_members || []
+      console.log(members, excludeMembers)
       const notDailyMembers = members.filter( mem => {
         return dailyMembers.indexOf(mem) < 0 || excludeMembers.indexOf(mem) < 0;
       });

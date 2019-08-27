@@ -19,8 +19,8 @@ var firebase = {}
 firebase.database = fb.database()
 firebase.saveDaily = (squad, message) => {
   let userName = message.chat.username
-  let userFirstName = message.chat.first_name
-  let userLastName = message.chat.last_name
+  let userFirstName = message.chat.first_name || ''
+  let userLastName = message.chat.last_name || ''
   let userRef = firebase.database.ref(`teleuser/${userName}`)
 
   userRef.once('value').then(snapshot => {
