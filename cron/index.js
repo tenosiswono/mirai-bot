@@ -8,10 +8,9 @@ const cron = (bot) => {
     const squads = await getSquads()
     for(const squad in squads) {
       const firebaseDailyMembers = await getDailyMembersToday(squad)
-      const dailyMembers = Object.keys(firebaseDailyMembers.val() || {})
-      const members = squads[squad].members || []
-      const excludeMembers = squads[squad].exclude_members || []
-      console.log(members, excludeMembers)
+      const members = Object.values(squad.members)
+      const excludeMembers = Object.values(squad.exclude_members)
+      const dailyMembers = Object.keys(firebaseDailyMembers || {})
       const notDailyMembers = members.filter( mem => {
         return dailyMembers.indexOf(mem) < 0 || excludeMembers.indexOf(mem) < 0;
       });
