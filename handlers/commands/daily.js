@@ -25,9 +25,12 @@ const dailyUpdateHandler = async ({ reply, replyWithMarkdown, session, message }
       getSquads().then(squadData => {
         const squadButton = []
         for(key in squadData) {
-          if (squadData[key].members && squadData[key].members.indexOf(message.chat.username) > -1) {
-            const nextAction = `pick_squad:${key}`;
-            squadButton.push(Markup.button(key, false))
+          if (squadData[key].members) {
+            const members = Object.values(squadData[key].members)
+            if (members.indexOf(message.chat.username) > -1) {
+              const nextAction = `pick_squad:${key}`;
+              squadButton.push(Markup.button(key, false))
+            }
           }
         }
         if (squadButton.length) {
